@@ -117,27 +117,49 @@ class Persona {
     this.peso = peso;
     this.altura = altura;
   }
+
+  calcularIMC() {
+    console.log("inside IMC()");
+    return this.peso / (this.altura * this.altura);
+  }
+
+  esMayordeEdad() {
+    if (this.edad >= 18) {
+      console.log("Es mayor!");
+      return true;
+    } else {
+      console.log("Es menor!");
+      return false;
+    }
+  }
 }
 
-Persona.prototype.calcularIMC = function() {
-  console.log("inside IMC()");
-  imc = this.peso / (this.altura * this.altura);
-  console.log(imc);
-  return imc;
-};
-
-Persona.prototype.esMayordeEdad = function() {
-    if (this.edad >= 18) {
-        console.log('Es mayor!');
-        return true;
-    } else {
-        console.log('Es menor!');
-        return false;
-    }
-  };
+// Persona.prototype.calcularIMC = function() {
+//   console.log("inside IMC()");
+//   imc = this.peso / (this.altura * this.altura);
+//   console.log(imc);
+//   return imc;
+// };
 
 persona1 = new Persona("a", 2, 2, "m", 123, 1.2);
 console.log(persona1.altura);
 
 persona1.calcularIMC();
 persona1.esMayordeEdad();
+
+// 12.- Crear una clase Cuenta que tenga los siguientes atributos y metodos:
+//      -Titular y cantidad
+//      -ingresar(cantidad)
+//      -retirar(cantidad)
+//      Hacer las validaciones previas
+//      Como regla de negocio no debe de tener más de $900 y menos de $10
+
+class Cuenta {
+  constructor(titular, cantidad) {
+    this.titular = titular;
+    this.cantidad = cantidad;
+  }
+}
+
+Cuenta.prototype.ingresar = function() {};
+Cuenta.prototype.retirar = function() {};
