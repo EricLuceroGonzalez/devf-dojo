@@ -1,2 +1,7 @@
 // Herencia - 
-// sdfsdfsdfd
+
+class asdas { 
+    constructor(name){
+        this.name = name;
+    }
+}
