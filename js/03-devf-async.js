@@ -144,7 +144,6 @@ const toSelectTime = (elArray) => {
     }
     console.log('Time over 2h: ' + newArray);
   }
-
 }
 
 // Callbacks
