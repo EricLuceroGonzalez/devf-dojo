@@ -168,7 +168,7 @@ class Construccion {
   }
 }
 
-class Casa {
+class Casa extends Construccion{
   constructor(
     numPuertas,
     numVentanas,
