@@ -178,7 +178,7 @@ class Casa extends Construccion{
     largo,
     ancho
   ) {
-    // super();
+    super();
     this.numPuertas = numPuertas;
     this.numVentanas = numVentanas;
     this.numPisos = numPisos;
