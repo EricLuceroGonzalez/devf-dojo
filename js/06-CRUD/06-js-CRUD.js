@@ -104,10 +104,10 @@ getAuthor
     console.log(err);
   });
 
-// creatingAuthor("Eric", "Lucero", "USA", "coffee please", "M", 30)
-//   .then(res => console.log(res))
-//   .catch(err => console.log(err));
+creatingAuthor("Eric", "Lucero", "USA", "coffee please", "M", 30)
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
 
-// creatingAuthor("Julio", "Cortazar", "MX", "perseguidor", "M", 33)
-//   .then(res => console.log(res))
-//   .catch(err => console.log(err));
+creatingAuthor("Julio", "Cortazar", "MX", "perseguidor", "M", 33)
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
