@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "js/05-promises"
+		},
+		{
+			"path": "js/06-CRUD"
+		}
+	],
+	"settings": {}
+}

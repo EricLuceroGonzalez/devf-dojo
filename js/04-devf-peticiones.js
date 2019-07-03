@@ -46,7 +46,7 @@ request.get(pokeApi_url, (err, res, body) => {
 // openlibrary_url = 'http://openlibrary.org/search.json?q=i+robot';
 pokeApi_url_b = "https://pokeapi.co/api/v2/pokemon/";
 
-const resFunct = (book) => {
+const resFunct = book => {
   openlibrary_url = `http://openlibrary.org/search.json?q=${book}`;
 
   request.get(openlibrary_url, (err, res, body) => {
@@ -119,7 +119,7 @@ peticion("I, Robot", resFunct);
 // //                     https://swapi.co/
 
 const swapi_url_people = "https://swapi.co/api/people/";
-const character = '4'; // There are 87 characters
+const character = "4"; // There are 87 characters
 
 request.get(swapi_url_people + character + "/", (err, res, body) => {
   if (res.statusCode === 200) {
@@ -133,7 +133,7 @@ request.get(swapi_url_people + character + "/", (err, res, body) => {
         if (res.statusCode === 200) {
           const eachFilm = JSON.parse(body);
           console.log(
-            eachFilm.title + ", (" + eachFilm.release_date.slice(0,4) + ")"
+            eachFilm.title + ", (" + eachFilm.release_date.slice(0, 4) + ")"
           );
         }
       });
@@ -143,27 +143,60 @@ request.get(swapi_url_people + character + "/", (err, res, body) => {
   }
 });
 
-// // 6.- Devolver los asteroides que sean potencialmente peligrosos para la tierra de la semana pasada hasta hoy.
-// //                     https://api.nasa.gov/
-// // API key: xERxdQqz2PW9yLdg43sshxX2TUmnTY4YWd77WEG0
-// // https://api.nasa.gov/planetary/apod?api_key=xERxdQqz2PW9yLdg43sshxX2TUmnTY4YWd77WEG0
-// const nasaApi =
-//   "https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=xERxdQqz2PW9yLdg43sshxX2TUmnTY4YWd77WEG0";
+// 6.- Devolver los asteroides que sean potencialmente peligrosos para la tierra de la semana pasada hasta hoy.
+//                     https://api.nasa.gov/
 
-// request.get(nasaApi, (err, res, body) => {
-//   if (res.statusCode === 200) {
-//     const json = JSON.parse(body);
-//     arrayNeo = json.near_earth_objects;
-//     for (let i = 0; i < arrayNeo.length; i++) {
-//       if (json.near_earth_objects[i].is_potentially_hazardous_asteroid) {
-//         console.log(arrayNeo[i].name);
-//         console.log(arrayNeo[i].orbital_data.last_observation_date);
-//       }
-//     }
-//   } else {
-//     console.log("res.statusCode !== 200");
-//   }
-// });
+apiKey = "xERxdQqz2PW9yLdg43sshxX2TUmnTY4YWd77WEG0";
+// const nasaApi = `https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${apiKey}`
+const nasaApi = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2019-06-20&api_key=${apiKey}`;
+request.get(nasaApi, (err, res, body) => {
+  if (res.statusCode === 200) {
+    const json = JSON.parse(body);
+    // console.log(json.near_earth_objects);
+    console.log("potentially_hazardous_asteroid!!!");
+    for (var key in json.near_earth_objects) {
+      // skip loop if the property is from prototype
+      if (!json.near_earth_objects.hasOwnProperty(key)) continue;
+      console.log("-----------------------");
+      console.log("Date: " + key);
+      var obj = json.near_earth_objects[key];
+
+      for (var prop in obj) {
+        if (obj[prop].is_potentially_hazardous_asteroid) {
+          console.log("\t name: " + obj[prop].name);
+          // Get into the key: "close_approach_data"
+          for (var key in obj[prop].close_approach_data) {
+            console.log(
+              "\tLast time approach: " +
+                obj[prop].close_approach_data[key].close_approach_date
+            );
+            console.log(
+              "\tDistance (km): " +
+                obj[prop].close_approach_data[key].miss_distance.kilometers
+            );
+            console.log("-----------------");
+          }
+        }
+      }
+    }
+
+    // console.log("\n -----------------  api.nasa.gov/planetary");
+
+    // for (let i = 0; i < arrayNeo.length; i++) {
+    //   if (json.near_earth_objects[i].is_potentially_hazardous_asteroid) {
+    //     console.log("name: " + arrayNeo[i].name);
+    //     console.log(
+    //       "last_observation_date: " +
+    //         arrayNeo[i].orbital_data.last_observation_date
+    //     );
+    //     console.log("----------------- \n");
+    //   }
+    // }
+  } else {
+    console.log("res.statusCode !== 200");
+  }
+  console.log("-----------------  api.nasa.gov/planetary\n");
+});
 
 // // 7.- Traer los primeros 151 pokemon de la primera generacion y devolver un objeto con el nombre, sus moves, tipos, tamaño
 // //     y peso. // name moves types height weight
