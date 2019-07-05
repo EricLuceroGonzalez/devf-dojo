@@ -40,17 +40,9 @@ app.get("/api/v1/articulo", (req, res) => {
   res.status(200).send({ message: "todo cool!" });
 });
 
-// 3.- Agrega un endpoint '/api/usuario/' que responda a una petición de tipo GET con el nombre que sea
-//     recibido a través de params. El servidor debe responder con un código de estado 200 y un json como este:
-//                   {'usuario': 'Edwin'}
 
-// 4.- Agrega un endpoint '/api/swapi' que responda a una petición de tipo GET con el personaje solicitado de
-//                     https://swapi.co/
-//     El cliente debe mandar el número de personaje mediante params. La respuesta del servidor debe lucir algo así
-//                 {'personaje': {
-//                     'name': 'Luke Skywalker',
-//                     ...,
-//                 }}
+
+
 
 app.listen(port, () =>
   console.log(`Example app-exercise listening on port ${port}!!`)
