@@ -27,20 +27,19 @@ app.get("/api/", (req, res) => {
 //     como el siguiente:
 //                     {'resultado': 7}
 app.get("/api/suma", (req, res) => {
-    console.log(req.body);
-    console.log(req.params);
-    console.log(req.query);
-    res.status(200).send({ message: "Hola mundo!!" });
-  });
+  console.log(req.body);
+  console.log(req.params);
+  console.log(req.query);
+  res.status(200).send({ message: "Hola mundo!!" });
+});
 
-
-  // Another test get
+// Another test get
 app.get("/api/v1/articulo", (req, res) => {
-    console.log(req.query);
-    console.log(req.params);
-    res.status(200).send({ message: "todo cool!" });
-  });
-  
+  console.log(req.query);
+  console.log(req.params);
+  res.status(200).send({ message: "todo cool!" });
+});
+
 // 3.- Agrega un endpoint '/api/usuario/' que responda a una petición de tipo GET con el nombre que sea
 //     recibido a través de params. El servidor debe responder con un código de estado 200 y un json como este:
 //                   {'usuario': 'Edwin'}
