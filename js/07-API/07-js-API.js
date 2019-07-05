@@ -8,6 +8,7 @@ const port = 3000;
 // To parse a boydy to json
 var bodyParser = require("body-parser");
 
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
