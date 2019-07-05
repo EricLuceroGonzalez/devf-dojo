@@ -2,6 +2,7 @@
 // From documentation: Express `Hello World` at  https://expressjs.com/en/starter/hello-world.html
 
 const express = require("express");
+const request = require("request");
 const app = express();
 const port = 3000;
 
@@ -34,7 +35,7 @@ app.get("/api/suma/", (req, res) => {
 app.get("/api/:usuario", (req, res) => {
   // console.log(req.body);
   console.log(req.params);
-  res.status(200).send(req.params );
+  res.status(200).send(req.params);
 });
 
 // 4.- Agrega un endpoint '/api/swapi' que responda a una petición de tipo GET con el personaje solicitado de
@@ -44,13 +45,39 @@ app.get("/api/:usuario", (req, res) => {
 //                     'name': 'Luke Skywalker',
 //                     ...,
 //                 }}
-app.get("/api/swapi", (req, res) => {
+app.get("/api/swapi/:character", (req, res) => {
   // console.log(req.body);
-  console.log(req.params);
-  res.status(200).send(req.params );
+  const promiseAPI = new Promise((resolve, reject) => {
+    // There are 87 characters
+    const swapi_url_people = `https://swapi.co/api/people/${
+      req.params.character
+    }/`;
+    request.get(swapi_url_people, (err, res, body) => {
+      if (res.statusCode === 200) {
+        //   parse body to JSON
+        const jsonCharacter = JSON.parse(body);
+        resolve(jsonCharacter);
+      } else {
+        reject("Algo salio mal....");
+      }
+    });
+  });
+
+  promiseAPI
+    .then(jsonCharacter => {
+      // console.log("**************  " + jsonCharacter.name + "  **************"); // The End...
+      console.log(
+        "Character No. " + req.params.character + "  is: " + jsonCharacter.name
+      );
+      res.status(200).send({
+        message: "user created!, No. " + req.params.character,
+        user: jsonCharacter.name
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
-
-
 
 // // When some one calls .get() we catch the request data and send a response data
 // app.get("/", (req, res) => {
