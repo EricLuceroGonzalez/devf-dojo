@@ -18,9 +18,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!!!");
 });
 
-app.get("/api/v1/prueba", (req, res) => {
-  res.status(200).send({ message: "ok" });
-});
+// app.get("/api/v1/prueba", (req, res) => {
+//   res.status(200).send({ message: "ok" });
+// });
 
 app.delete("/api/v1/prueba", (req, res) => {
   res.status(333).send({ message: "Hiciste post!" });
