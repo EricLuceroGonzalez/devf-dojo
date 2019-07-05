@@ -8,7 +8,6 @@ const port = 3000;
 // To parse a boydy to json
 var bodyParser = require("body-parser");
 
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
@@ -19,9 +18,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!!!");
 });
 
-// app.get("/api/v1/prueba", (req, res) => {
-//   res.status(200).send({ message: "ok" });
-// });
+app.get("/api/v1/prueba", (req, res) => {
+  res.status(200).send({ message: "ok" });
+});
 
 app.delete("/api/v1/prueba", (req, res) => {
   res.status(333).send({ message: "Hiciste post!" });
@@ -35,23 +34,23 @@ app.post("/api/v1/usuario", (req, res) => {
 
 // Another test get
 app.get("/api/v1/articulo", (req, res) => {
-    console.log(req.query);
-    res.status(200).send({ message: "todo cool!" });
-  });
+  console.log(req.query);
+  console.log(req.query);
+  res.status(200).send({ message: "todo cool!" });
+});
 
+// Now with param
+app.get("/api/v1/articulo/:id/", (req, res) => {
+  console.log(req.params);
+  console.log(req.query);
+  res.status(200).send({ message: "todo cool! -- (id1)" });
+});
 
-  // Now with param
-app.get("/api/v1/articulo/:id", (req, res) => {
-    console.log(req.params);
-    res.status(200).send({ message: "todo cool! -- (id)" });
-  });
-
-  // Now with query
-  app.get("/api/v1/articulo/book=aaaa?author=julio", (req, res) => {
-    console.log(req.params);
-    res.status(200).send({ message: "todo cool! -- (id)" });
-  });
-
-
+// Now with query
+app.get("/api/v1/articulo/", (req, res) => {
+  console.log(req.params);
+  console.log(req.query);
+  res.status(200).send({ message: "todo cool! -- (id2)" });
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!!`));
