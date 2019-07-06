@@ -33,22 +33,48 @@ app.post("/api/v1/artist", (req, res) => {
   newArtist.save(err => {
     return err
       ? res.status(400).send({ message: "Some mistake", res: err })
-      : res.status(200).send({ message: "ok", res: newArtist });
+      : res.status(201).send({ message: "ok", res: newArtist });
   });
   // Send response from db  -----> client
 });
 
 // R: read (All)
 app.get("/api/v1/artist", (req, res) => {
-    // find() artist from db
-    Artist.find().exec()
-    .then()
-    .catch()
-  });
+  // find() all artist from db
+  Artist.find()
+    .exec()
+    .then(newArtist => res.status(200).send(newArtist))
+    .catch(err => res.status(400).send(err));
+});
 // R: read (One)
-// U: update
-// D: delete
+app.get("/api/v1/artist/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  Artist.findById(id)
+    .exec()
+    .then(newArtist => res.status(200).send(newArtist))
+    .catch(err => res.status(400).send(err));
+});
 
+// U: update (one)
+app.patch("/api/v1/artist/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  Artist.findByIdAndUpdate(id, req.body, { new: true })
+    .exec()
+    .then(newArtist => res.status(200).send(newArtist))
+    .catch(err => res.status(400).send(err));
+});
+
+// D: delete
+app.delete("/api/v1/artist/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  Artist.findByIdAndDelete(id, req.body, { new: true })
+    .exec()
+    .then(newArtist => res.status(204).send(newArtist))
+    .catch(err => res.status(400).send(err));
+});
 // Send variable when this file is "require"
 module.exports = { app, port };
 
