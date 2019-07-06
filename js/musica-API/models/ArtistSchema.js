@@ -12,3 +12,8 @@ const artistSchema = new Schema({
   originDate: { type: Date },
   is_active: { type: Boolean, default: true }
 });
+
+// Lets create (convert) this schema Model with ---> mongoose.model(modelName, schema):
+const Artist = mongoose.model('Artist', artistSchema);
+// Send it:
+module.exports = Artist
