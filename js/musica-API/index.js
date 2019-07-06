@@ -1,9 +1,11 @@
+// require and configure dotenv
+require("dotenv").config();
+
 // New thing: Desestructuracion
 const { app, port } = require("./server/index");
 
 // pull database from ./database/index.js
-require('./database')
-
+require("./database");
 
 // Start the server
 app.listen(port, () => {
