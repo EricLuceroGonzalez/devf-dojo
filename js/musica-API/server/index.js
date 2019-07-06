@@ -17,6 +17,20 @@ app.get("/", (req, res) => {
   res.send("Hello World!!!");
 });
 
+// initi CRUD -------------
+
+// C: create
+app.post('/api/v1/artist', (req, res) => {
+    // Receive artist from client
+    // Save artist to db
+    // Send response from db  -----> client
+});
+
+// R: read (All)
+// R: read (One)
+// U: update
+// D: delete
+
 // Send variable when this file is "require"
 module.exports = {app, port};
 
