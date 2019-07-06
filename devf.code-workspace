@@ -4,6 +4,9 @@
 			"path": "js/05-promises"
 		},
 		{
+			"path": "js/07-API"
+		},
+		{
 			"path": "js/06-CRUD"
 		}
 	],
