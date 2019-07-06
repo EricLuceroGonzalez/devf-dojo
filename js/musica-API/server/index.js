@@ -39,9 +39,12 @@ app.post("/api/v1/artist", (req, res) => {
 });
 
 // R: read (All)
-// app.get("/api/v1/artist", (req, res) => {
-//     // find() artist from db
-//   });
+app.get("/api/v1/artist", (req, res) => {
+    // find() artist from db
+    Artist.find().exec()
+    .then()
+    .catch()
+  });
 // R: read (One)
 // U: update
 // D: delete
