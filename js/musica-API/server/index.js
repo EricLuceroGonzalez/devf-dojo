@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Require artist schema file to save it:
-const artistSchema = require("../models/ArtistSchema");
+const Artist = require("../models/ArtistSchema");
 
 // To parse a boydy to json
 var bodyParser = require("body-parser");
@@ -26,10 +26,10 @@ app.get("/", (req, res) => {
 app.post("/api/v1/artist", (req, res) => {
   // Receive artist from client
   const artistInfo = req.body;
-  console.log(artistInfosen);
+  console.log(artistInfo);
 
   // Save artist to db
-  const newArtist = new artistSchema(artistInfo);
+  const newArtist = new Artist(artistInfo);
   newArtist.save(err => {
     return err
       ? res.status(400).send({ message: "Some mistake", res: err })
@@ -39,6 +39,9 @@ app.post("/api/v1/artist", (req, res) => {
 });
 
 // R: read (All)
+// app.get("/api/v1/artist", (req, res) => {
+//     // find() artist from db
+//   });
 // R: read (One)
 // U: update
 // D: delete

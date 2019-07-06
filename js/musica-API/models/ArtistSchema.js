@@ -7,13 +7,13 @@ const Schema = mongoose.Schema;
 const artistSchema = new Schema({
   name: { type: String, required: true },
   genre: { type: String },
-  integrants: { type: [{ type: String }] },
-  albums: { type: [{ type: String }] },
+  integrants: [{ type: String }],
+  albums: [{ type: String }],
   originDate: { type: Date },
   is_active: { type: Boolean, default: true }
 });
 
 // Lets create (convert) this schema Model with ---> mongoose.model(modelName, schema):
-const Artist = mongoose.model('Artist', artistSchema);
+const Artist = mongoose.model("Artist", artistSchema);
 // Send it:
-module.exports = Artist
+module.exports = Artist;
