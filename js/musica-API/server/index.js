@@ -4,6 +4,9 @@ const app = express();
 // check computer environment port number
 const port = process.env.PORT || 3000;
 
+// Require artist schema file to save it:
+const artistSchema = require("../models/ArtistSchema");
+
 // To parse a boydy to json
 var bodyParser = require("body-parser");
 
@@ -22,10 +25,16 @@ app.get("/", (req, res) => {
 // C: create
 app.post("/api/v1/artist", (req, res) => {
   // Receive artist from client
-  const artist = req.body;
-  console.log(artist);
+  const artistInfo = req.body;
+  console.log(artistInfosen);
 
   // Save artist to db
+  const newArtist = new artistSchema(artistInfo);
+  newArtist.save(err => {
+    return err
+      ? res.status(400).send({ message: "Some mistake", res: err })
+      : res.status(200).send({ message: "ok", res: newArtist });
+  });
   // Send response from db  -----> client
 });
 
