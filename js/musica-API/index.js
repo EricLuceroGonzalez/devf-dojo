@@ -1,7 +1,9 @@
 // New thing: Desestructuracion
 const { app, port } = require("./server/index");
 
-console.log(serverA);
+// pull database from ./database/index.js
+require('./database')
+
 
 // Start the server
 app.listen(port, () => {
