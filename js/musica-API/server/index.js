@@ -20,10 +20,13 @@ app.get("/", (req, res) => {
 // initi CRUD -------------
 
 // C: create
-app.post('/api/v1/artist', (req, res) => {
-    // Receive artist from client
-    // Save artist to db
-    // Send response from db  -----> client
+app.post("/api/v1/artist", (req, res) => {
+  // Receive artist from client
+  const artist = req.body;
+  console.log(artist);
+
+  // Save artist to db
+  // Send response from db  -----> client
 });
 
 // R: read (All)
@@ -32,6 +35,6 @@ app.post('/api/v1/artist', (req, res) => {
 // D: delete
 
 // Send variable when this file is "require"
-module.exports = {app, port};
+module.exports = { app, port };
 
 // app.listen(port, () => console.log(`Example app listening on port ${port}!!`));
