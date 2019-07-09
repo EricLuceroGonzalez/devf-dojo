@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // // Require artist schema file to save it:
-const ArticleSchema = require("../models/ArticleSchema");
+const Article = require("../models/ArticleSchema");
 const TicketSchema = require('../models/TicketSchema');
 // To parse a boydy to json
 var bodyParser = require("body-parser");
@@ -29,7 +29,7 @@ app.post("/api/v1/article", (req, res) => {
   console.log(articleInfo);
 
   // Save artist to db
-  const newArticle = new ArticleSchema(articleInfo);
+  const newArticle = new Article(articleInfo);
   // Send response from db  -----> client
   newArticle.save(err => {
     return err
@@ -37,6 +37,48 @@ app.post("/api/v1/article", (req, res) => {
       : res.status(201).send({ message: "ok", 'res': newArticle });
   });
 });
+
+// R: read (All)
+app.get("/api/v1/article", (req, res) => {
+  // find() all artist from db
+  Article.find()
+    .exec()
+    .then(newArticle => res.status(200).send(newArticle))
+    .catch(err => res.status(400).send(err));
+});
+
+// R: read (One)
+app.get("/api/v1/article/:id", (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  
+  // find() artist from db
+  Article.findById(id)
+    .exec()
+    .then(newArticle => res.status(200).send(newArticle))
+    .catch(err => res.status(400).send(err));
+});
+
+// U: update (one)
+app.patch("/api/v1/article/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  Article.findByIdAndUpdate(id, req.body, { new: true })
+    .exec()
+    .then(newArticle => res.status(200).send(newArticle))
+    .catch(err => res.status(400).send(err));
+});
+
+// D: delete
+app.delete("/api/v1/article/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  Article.findByIdAndDelete(id, req.body, { new: true })
+    .exec()
+    .then(newArticle => res.status(204).send(newArticle))
+    .catch(err => res.status(400).send(err));
+});
+
 
 app.post("/api/v1/tickets", (req, res) => {
   // Receive ticket from client
@@ -51,6 +93,45 @@ app.post("/api/v1/tickets", (req, res) => {
       ? res.status(400).send({ message: "Some mistake", res: err })
       : res.status(201).send({ message: "ok", 'res': newTicket });
   });
+});
+
+// R: read (All)
+app.get("/api/v1/tickets/", (req, res) => {
+  // find() all artist from db
+  TicketSchema.find()
+    .exec()
+    .then(newTicket => res.status(200).send(newTicket))
+    .catch(err => res.status(400).send(err));
+});
+
+// R: read (One)
+app.get("/api/v1/tickets/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  TicketSchema.findById(id)
+    .exec()
+    .then(newTicket => res.status(200).send(newTicket))
+    .catch(err => res.status(400).send(err));
+});
+
+// U: update (one)
+app.patch("/api/v1/tickets/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  TicketSchema.findByIdAndUpdate(id, req.body, { new: true })
+    .exec()
+    .then(newTicket => res.status(200).send(newTicket))
+    .catch(err => res.status(400).send(err));
+});
+
+// D: delete
+app.delete("/api/v1/tickets/:id", (req, res) => {
+  const { id } = req.params;
+  // find() artist from db
+  TicketSchema.findByIdAndDelete(id, req.body, { new: true })
+    .exec()
+    .then(newTicket => res.status(204).send(newTicket))
+    .catch(err => res.status(400).send(err));
 });
 
 // Send variable when this file is "require"

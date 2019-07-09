@@ -4,7 +4,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Require artist schema file to save it:
-const articleSchema = require('./ArticleSchema');
+const Article = require('./ArticleSchema');
 
 const ticketSchema = new Schema({
   subtotal: { type: Number, required: true },
