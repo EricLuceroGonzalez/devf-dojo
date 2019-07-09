@@ -6,7 +6,9 @@ const port = process.env.PORT || 3000;
 
 // // Require artist schema file to save it:
 const Article = require("../models/ArticleSchema");
-const TicketSchema = require("../models/TicketSchema");
+const Ticket = require("../models/TicketSchema");
+// const Article = require('../models/allSchema');
+// const Ticket= require('../models/allSchema');
 // To parse a boydy to json
 var bodyParser = require("body-parser");
 
@@ -85,7 +87,7 @@ app.post("/api/v1/tickets", (req, res) => {
   console.log(ticketInfo);
 
   // Save ticket to db
-  const newTicket = new TicketSchema(ticketInfo);
+  const newTicket = new Ticket(ticketInfo);
   // Send response from db  -----> client
   newTicket.save(err => {
     return err
@@ -97,8 +99,8 @@ app.post("/api/v1/tickets", (req, res) => {
 // R: read (All)
 app.get("/api/v1/tickets/", (req, res) => {
   // find() all artist from db
-  TicketSchema.find()
-    .populate("articulos")
+  Ticket.find()
+    .populate("articles")
     .exec()
     .then(newTicket => res.status(200).send(newTicket))
     .catch(err => res.status(400).send(err));
@@ -108,8 +110,8 @@ app.get("/api/v1/tickets/", (req, res) => {
 app.get("/api/v1/tickets/:id", (req, res) => {
   const { id } = req.params;
   // find() artist from db
-  TicketSchema.findById(id)
-    .populate("articulos")
+  Ticket.findById(id)
+    .populate("articles")
     .exec()
     .then(newTicket => res.status(200).send(newTicket))
     .catch(err => res.status(400).send(err));
@@ -119,7 +121,7 @@ app.get("/api/v1/tickets/:id", (req, res) => {
 app.patch("/api/v1/tickets/:id", (req, res) => {
   const { id } = req.params;
   // find() artist from db
-  TicketSchema.findByIdAndUpdate(id, req.body, { new: true })
+  Ticket.findByIdAndUpdate(id, req.body, { new: true })
     .exec()
     .then(newTicket => res.status(200).send(newTicket))
     .catch(err => res.status(400).send(err));
@@ -127,9 +129,9 @@ app.patch("/api/v1/tickets/:id", (req, res) => {
 
 // D: delete
 app.delete("/api/v1/tickets/:id", (req, res) => {
-  const { id } = req.params;
+  const id  = req.params.id;
   // find() artist from db
-  TicketSchema.findByIdAndDelete(id, req.body, { new: true })
+  Ticket.findByIdAndDelete(id)
     .exec()
     .then(newTicket => res.status(204).send(newTicket))
     .catch(err => res.status(400).send(err));
@@ -138,8 +140,8 @@ app.delete("/api/v1/tickets/:id", (req, res) => {
 app.get("/api/v1/tickets/factura/:id/", (req, res) => {
   const ticketId = req.params.id;
 
-  TicketSchema.findById(ticketId)
-    .populate("articulos")
+  Ticket.findById(ticketId)
+    .populate("articles")
     .exec()
     .then(ticket => {
       console.log('inside here');

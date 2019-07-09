@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({
-  // articulo: mongoose.Schema.ObjectId,
   name: { type: String, required: true },
   price: { type: Number },
   onExistence: { type: Number }
