@@ -14,6 +14,7 @@ const artistSchema = new Schema({
 });
 
 // Lets create (convert) this schema Model with ---> mongoose.model(modelName, schema):
-const Artist = mongoose.model("Artist", artistSchema);
+const ArtistSchema = mongoose.model('ArtistSchema', artistSchema);
+
 // Send it:
-module.exports = Artist;
+module.exports = ArtistSchema;

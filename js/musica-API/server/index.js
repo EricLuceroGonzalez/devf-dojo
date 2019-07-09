@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Require artist schema file to save it:
-const Artist = require("../models/ArtistSchema");
+const ArtistSchema = require("../models/ArtistSchema");
 
 // To parse a boydy to json
 var bodyParser = require("body-parser");
@@ -26,10 +26,11 @@ app.get("/", (req, res) => {
 app.post("/api/v1/artist", (req, res) => {
   // Receive artist from client
   const artistInfo = req.body;
-  console.log(`req.body = ${artistInfo}`);
+  // console.log(`req.body = ${artistInfo}`);
+  console.log(artistInfo);
 
   // Save artist to db
-  const newArtist = new Artist(artistInfo);
+  const newArtist = new ArtistSchema(artistInfo);
   // Send response from db  -----> client
   newArtist.save(err => {
     return err
@@ -41,7 +42,7 @@ app.post("/api/v1/artist", (req, res) => {
 // R: read (All)
 app.get("/api/v1/artist", (req, res) => {
   // find() all artist from db
-  Artist.find()
+  ArtistSchema.find()
     .exec()
     .then(newArtist => res.status(200).send(newArtist))
     .catch(err => res.status(400).send(err));
@@ -51,7 +52,7 @@ app.get("/api/v1/artist", (req, res) => {
 app.get("/api/v1/artist/:id", (req, res) => {
   const { id } = req.params;
   // find() artist from db
-  Artist.findById(id)
+  ArtistSchema.findById(id)
     .exec()
     .then(newArtist => res.status(200).send(newArtist))
     .catch(err => res.status(400).send(err));
@@ -61,7 +62,7 @@ app.get("/api/v1/artist/:id", (req, res) => {
 app.patch("/api/v1/artist/:id", (req, res) => {
   const { id } = req.params;
   // find() artist from db
-  Artist.findByIdAndUpdate(id, req.body, { new: true })
+  ArtistSchema.findByIdAndUpdate(id, req.body, { new: true })
     .exec()
     .then(newArtist => res.status(200).send(newArtist))
     .catch(err => res.status(400).send(err));
@@ -71,7 +72,7 @@ app.patch("/api/v1/artist/:id", (req, res) => {
 app.delete("/api/v1/artist/:id", (req, res) => {
   const { id } = req.params;
   // find() artist from db
-  Artist.findByIdAndDelete(id, req.body, { new: true })
+  ArtistSchema.findByIdAndDelete(id, req.body, { new: true })
     .exec()
     .then(newArtist => res.status(204).send(newArtist))
     .catch(err => res.status(400).send(err));
