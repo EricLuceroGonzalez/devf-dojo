@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const Article = require('./ArticleSchema');
 
 const ticketSchema = new Schema({
+  _id: mongoose.Schema.ObjectId,
   subtotal: { type: Number, required: true },
   IVA: { type: Number },
   articulos: [{ type: mongoose.Schema.ObjectId, ref: 'Article', required: true }]

@@ -79,7 +79,6 @@ app.delete("/api/v1/article/:id", (req, res) => {
     .catch(err => res.status(400).send(err));
 });
 
-
 app.post("/api/v1/tickets", (req, res) => {
   // Receive ticket from client
   const ticketInfo = req.body;
