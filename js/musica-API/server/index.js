@@ -26,16 +26,16 @@ app.get("/", (req, res) => {
 app.post("/api/v1/artist", (req, res) => {
   // Receive artist from client
   const artistInfo = req.body;
-  console.log(artistInfo);
+  console.log(`req.body = ${artistInfo}`);
 
   // Save artist to db
   const newArtist = new Artist(artistInfo);
+  // Send response from db  -----> client
   newArtist.save(err => {
     return err
       ? res.status(400).send({ message: "Some mistake", res: err })
-      : res.status(201).send({ message: "ok", res: newArtist });
+      : res.status(201).send({ message: "ok", 'res': newArtist });
   });
-  // Send response from db  -----> client
 });
 
 // R: read (All)
@@ -46,6 +46,7 @@ app.get("/api/v1/artist", (req, res) => {
     .then(newArtist => res.status(200).send(newArtist))
     .catch(err => res.status(400).send(err));
 });
+
 // R: read (One)
 app.get("/api/v1/artist/:id", (req, res) => {
   const { id } = req.params;
