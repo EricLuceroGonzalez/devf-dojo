@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 // // Require artist schema file to save it:
 const Article = require("../models/ArticleSchema");
-const TicketSchema = require('../models/TicketSchema');
+const TicketSchema = require("../models/TicketSchema");
 // To parse a boydy to json
 var bodyParser = require("body-parser");
 
@@ -34,7 +34,7 @@ app.post("/api/v1/article", (req, res) => {
   newArticle.save(err => {
     return err
       ? res.status(400).send({ message: "Some mistake", res: err })
-      : res.status(201).send({ message: "ok", 'res': newArticle });
+      : res.status(201).send({ message: "ok", res: newArticle });
   });
 });
 
@@ -51,7 +51,7 @@ app.get("/api/v1/article", (req, res) => {
 app.get("/api/v1/article/:id", (req, res) => {
   const { id } = req.params;
   console.log(id);
-  
+
   // find() artist from db
   Article.findById(id)
     .exec()
@@ -90,7 +90,7 @@ app.post("/api/v1/tickets", (req, res) => {
   newTicket.save(err => {
     return err
       ? res.status(400).send({ message: "Some mistake", res: err })
-      : res.status(201).send({ message: "ok", 'res': newTicket });
+      : res.status(201).send({ message: "ok", res: newTicket });
   });
 });
 
@@ -98,6 +98,7 @@ app.post("/api/v1/tickets", (req, res) => {
 app.get("/api/v1/tickets/", (req, res) => {
   // find() all artist from db
   TicketSchema.find()
+    .populate("articulos")
     .exec()
     .then(newTicket => res.status(200).send(newTicket))
     .catch(err => res.status(400).send(err));
@@ -108,6 +109,7 @@ app.get("/api/v1/tickets/:id", (req, res) => {
   const { id } = req.params;
   // find() artist from db
   TicketSchema.findById(id)
+    .populate("articulos")
     .exec()
     .then(newTicket => res.status(200).send(newTicket))
     .catch(err => res.status(400).send(err));
@@ -130,6 +132,19 @@ app.delete("/api/v1/tickets/:id", (req, res) => {
   TicketSchema.findByIdAndDelete(id, req.body, { new: true })
     .exec()
     .then(newTicket => res.status(204).send(newTicket))
+    .catch(err => res.status(400).send(err));
+});
+
+app.get("/api/v1/tickets/factura/:id/", (req, res) => {
+  const ticketId = req.params.id;
+
+  TicketSchema.findById(ticketId)
+    .populate("articulos")
+    .exec()
+    .then(ticket => {
+      console.log('inside here');
+      // console.log(ticket);
+    })
     .catch(err => res.status(400).send(err));
 });
 

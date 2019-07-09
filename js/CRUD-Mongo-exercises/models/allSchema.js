@@ -11,8 +11,19 @@ const articleSchema = new Schema({
   onExistence: { type: Number }
 });
 
+const ticketSchema = new Schema({
+  // ticket: mongoose.Schema.ObjectId,
+  subtotal: { type: Number, default: 0 },
+  IVA: { type: Number, default: 0 },
+  total: { type: Number, default: 0 },
+  articles: [
+    { type: mongoose.Schema.ObjectId, ref: "Article", required: true }
+  ]
+});
+
 // Lets create (convert) this schema Model with ---> mongoose.model(modelName, schema):
+const Ticket = mongoose.model("Ticket", ticketSchema);
 const Article = mongoose.model("Article", articleSchema);
 
 // Send it:
-module.exports = Article;
+module.exports = {Ticket, Article};

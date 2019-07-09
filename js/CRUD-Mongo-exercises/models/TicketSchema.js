@@ -4,13 +4,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Require artist schema file to save it:
-const Article = require('./ArticleSchema');
+const Article = require("./ArticleSchema");
 
 const ticketSchema = new Schema({
-  _id: mongoose.Schema.ObjectId,
-  subtotal: { type: Number, required: true },
-  IVA: { type: Number },
-  articulos: [{ type: mongoose.Schema.ObjectId, ref: 'Article', required: true }]
+  // ticket: mongoose.Schema.ObjectId,
+  subtotal: { type: Number, default: 0 },
+  IVA: { type: Number, default: 0 },
+  total: { type: Number, default: 0 },
+  articles: [
+    { type: mongoose.Schema.ObjectId, ref: "Article", required: true }
+  ]
   // articulos: { type: articleSchema }
 });
 
