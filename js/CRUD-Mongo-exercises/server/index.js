@@ -129,7 +129,7 @@ app.patch("/api/v1/tickets/:id", (req, res) => {
 
 // D: delete
 app.delete("/api/v1/tickets/:id", (req, res) => {
-  const id  = req.params.id;
+  const id = req.params.id;
   // find() artist from db
   Ticket.findByIdAndDelete(id)
     .exec()
@@ -137,15 +137,38 @@ app.delete("/api/v1/tickets/:id", (req, res) => {
     .catch(err => res.status(400).send(err));
 });
 
-app.get("/api/v1/tickets/factura/:id/", (req, res) => {
+// ----------------  Calculate bill
+app.get("/api/v1/tickets/bill/:id/", (req, res) => {
   const ticketId = req.params.id;
+  let subtotal = 0,
+    IVA = 0,
+    total = 0;
 
   Ticket.findById(ticketId)
     .populate("articles")
     .exec()
     .then(ticket => {
-      console.log('inside here');
-      // console.log(ticket);
+      // Calculate total:
+      const prices = ticket.articles.map(article => article.precio);
+      const subtotal = ticket.articles.reduce(
+        (total, precio) => total + precio
+      );
+      const IVA = subtotal * 0.07;
+      const total = IVA + subtotal;
+      // console.log('inside here');
+      console.log(ticket);
+      console.log(prices, subtotal, IVA, total);
+
+      // Change the ticket
+      Ticket.findOneAndUpdate(
+        { _id: ticket.id },
+        { subtotal, IVA, total },
+        { new: true }
+      )
+      .populate('articles')
+      .exec()
+      .then(newBill => res.status(204).send(newBill))
+      .catch(errBill => res.status(400).send(errBill));
     })
     .catch(err => res.status(400).send(err));
 });
