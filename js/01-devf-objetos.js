@@ -16,15 +16,23 @@ let aPenguin = {
 
 console.log("Hola, soy un pingüino y mi nombre es " + aPenguin.character);
 
+let pElem = document.createElement('p');
+pElem.textContent = aPenguin.character;
+document.body.appendChild(pElem);
+
 // 3.- Escribe otra línea de código que añada una nueva propiedad a tu pingüino llamada puedeVolar y asignalo a falso.
 
 aPenguin.puedeVolar = false;
 
-// 4.- Añade un método a tu pingüino llamado 'graznar' que muestre en consola: "kaww kaww!!"
 
+// 4.- Añade un método a tu pingüino llamado 'graznar' que muestre en consola: "kaww kaww!!"
 aPenguin.graznar = function() {
   console.log("\n kaww kaww!!");
 };
+
+// let pElem2 = document.createElement('p');
+// pElem2.textContent = aPenguin.character + 'aaa';
+// document.body.appendChild(pElem2);
 
 aPenguin.graznar();
 // 5.- Añade otro método a tu pingüino llamado 'saludar' que imprima en consola el mismo mensaje que escribimos para la bienvenida.

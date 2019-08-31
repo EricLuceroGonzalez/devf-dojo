@@ -1,10 +1,11 @@
 html {
   /* For parallax: */
   height: 100%;
+  font-size: 20px;
 }
 
 body {
-  margin: 0em;
+  margin: 60px 6em;
   background-color: #fff;
   color: #666;
   /* For parallax: */
@@ -21,8 +22,8 @@ body {
   background-image: linear-gradient(
     to top,
     #44595a 1%,
-    #2f5661 30%,
-    #102952 100%
+    #327c90 30%,
+    #062e6e 100%
   );
   background-size: 100% 400%;
   -webkit-animation: Gradient 5s ease infinite;
@@ -40,4 +41,9 @@ h3 {
 a {
   color: #3d6dbe;
   text-decoration: none;
+}
+
+#bodyDiv {
+  border: 1px dashed #f0db4f;
+  padding: 0px 40px;
 }
