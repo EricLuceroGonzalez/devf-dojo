@@ -11,3 +11,5 @@ db_uri='mongodb+srv://ericlucerogonzalez:ericlucerogonzalezmongoDB2019+@cluster0
 mongoose.connect(db_uri, { useNewUrlParser: true }, err => {
   if (!err) console.log("Conexion exitosa :):");
 });
+
+// mydatabase2019*mongodb

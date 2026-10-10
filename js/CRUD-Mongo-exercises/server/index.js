@@ -165,10 +165,10 @@ app.get("/api/v1/tickets/bill/:id/", (req, res) => {
         { subtotal, IVA, total },
         { new: true }
       )
-      .populate('articles')
-      .exec()
-      .then(newBill => res.status(204).send(newBill))
-      .catch(errBill => res.status(400).send(errBill));
+        .populate("articles")
+        .exec()
+        .then(newBill => res.status(204).send(newBill))
+        .catch(errBill => res.status(400).send(errBill));
     })
     .catch(err => res.status(400).send(err));
 });
